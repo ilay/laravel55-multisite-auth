@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use View;
+
+class Controller extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * Define the root directory of views.
+     *
+     * @param string $root Root directory
+     *
+     * @return void
+     */
+    protected function setViewsRoot($root)
+    {
+        $rootPath = resource_path('views/') . $root;
+        $finder   = new \Illuminate\View\FileViewFinder(app()['files'], [$rootPath]);
+        View::setFinder($finder);
+    }
+}
